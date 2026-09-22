@@ -1,0 +1,22 @@
+[
+  {
+    "codigo": "P001",
+    "nombre": "Tomate chonto",
+    "categoria": "Hortalizas",
+    "unidad": "kg",
+    "precio": 4200.0,
+    "costo_unitario": 2100,
+    "stock_minimo": 15,
+    "activo": true
+  },
+  {
+    "codigo": "P002",
+    "nombre": "Lechuga romana",
+    "categoria": "Hortalizas",
+    "unidad": "unidad",
+    "precio": 2800.0,
+    "costo_unitario": 1200,
+    "stock_minimo": 20,
+    "activo": true
+  }
+]

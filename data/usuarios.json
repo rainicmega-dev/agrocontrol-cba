@@ -1,0 +1,14 @@
+[
+  {
+    "usuario": "campo",
+    "clave": "campo01",
+    "rol": "OPERADOR",
+    "nombre": "Auxiliar de Campo"
+  },
+  {
+    "usuario": "admin",
+    "clave": "cba2026",
+    "rol": "INSTRUCTOR",
+    "nombre": "Instructor Técnico"
+  }
+]

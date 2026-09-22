@@ -1,0 +1,16 @@
+[
+  {
+    "id": "V0001",
+    "fecha": "2026-09-10 11:00",
+    "items": [
+      {
+        "codigo": "P001",
+        "cantidad": 8,
+        "precio_unitario": 4200.0,
+        "subtotal": 33600.0
+      }
+    ],
+    "total": 33600.0,
+    "anulada": false
+  }
+]

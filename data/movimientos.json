@@ -1,0 +1,18 @@
+[
+  {
+    "id": "M0001",
+    "producto_codigo": "P001",
+    "tipo": "ENTRADA",
+    "cantidad": 40,
+    "motivo": "Cosecha del lote L001",
+    "fecha": "2026-09-10 09:15"
+  },
+  {
+    "id": "M0002",
+    "producto_codigo": "P001",
+    "tipo": "SALIDA",
+    "cantidad": 8,
+    "motivo": "Venta V0001",
+    "fecha": "2026-09-10 11:00"
+  }
+]
