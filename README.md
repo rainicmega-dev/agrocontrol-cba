@@ -10,31 +10,31 @@ Facatativá, Cundinamarca
 
 AgroControl CBA es una aplicación de consola en Python que permite administrar:
 
-- Productos comercializables (precio, costo unitario y stock mínimo)
-- Lotes productivos asociados a cultivos
-- Movimientos de inventario (entradas y salidas)
-- Ventas de uno o varios ítems
-- Devoluciones / anulación de ventas
-- Alertas de stock bajo
-- Reportes de existencias, ventas, ranking, utilidad y rotación
-- Exportación de inventario a CSV
-- Autenticación con roles OPERADOR e INSTRUCTOR
-- Respaldo automático de archivos JSON
+* Productos comercializables (precio, costo unitario y stock mínimo)
+* Lotes productivos asociados a cultivos
+* Movimientos de inventario (entradas y salidas)
+* Ventas de uno o varios ítems
+* Devoluciones / anulación de ventas
+* Alertas de stock bajo
+* Reportes de existencias, ventas, ranking, utilidad y rotación
+* Exportación de inventario a CSV
+* Autenticación con roles OPERADOR e INSTRUCTOR
+* Respaldo automático de archivos JSON
 
 La información se almacena en archivos JSON locales. El stock se calcula a partir de los movimientos (no se guarda como campo estático).
 
 ## Tecnologías
 
-- Python 3 (módulos estándar: `json`, `csv`, `shutil`, `datetime`, `pathlib`)
-- JSON para persistencia
-- Git / GitHub para control de versiones
+* Python 3 (módulos estándar: `json`, `csv`, `shutil`, `datetime`, `pathlib`)
+* JSON para persistencia
+* Git / GitHub para control de versiones
 
 No se emplean bases de datos, frameworks web ni librerías externas.
 
 ## Estructura
 
 ```
-agrocontrol_cba/
+agrocontrol\_cba/
 ├── main.py
 ├── data/
 │   ├── productos.json
@@ -54,19 +54,19 @@ Python 3.8 o superior.
 ## Ejecución
 
 ```bash
-cd agrocontrol_cba
+cd agrocontrol\_cba
 python main.py
 ```
 
 ### Credenciales
 
-| Usuario | Clave    | Rol        |
-|---------|----------|------------|
-| campo   | campo01  | OPERADOR   |
-| admin   | cba2026  | INSTRUCTOR |
+|Usuario|Clave|Rol|
+|-|-|-|
+|campo|campo01|OPERADOR|
+|admin|cba2026|INSTRUCTOR|
 
-- **OPERADOR**: productos, lotes, inventario, ventas y reportes.
-- **INSTRUCTOR**: todo lo anterior + desactivar productos y devolver ventas.
+* **OPERADOR**: productos, lotes, inventario, ventas y reportes.
+* **INSTRUCTOR**: todo lo anterior + desactivar productos y devolver ventas.
 
 ## Menú principal
 
@@ -96,19 +96,26 @@ python main.py
 
 ## Retos de ampliación incluidos
 
-| Funcionalidad              | Descripción                                      |
-|----------------------------|--------------------------------------------------|
-| Ventas por fechas          | Filtro por rango YYYY-MM-DD                      |
-| Utilidad estimada          | (precio − costo) × cantidad vendida              |
-| Devolución de ventas       | Reingreso de inventario (solo INSTRUCTOR)        |
-| Exportar CSV               | Inventario completo a archivo CSV                |
-| Backup automático          | Copia de JSON antes de cada guardado             |
-| Autenticación + roles      | Login OPERADOR / INSTRUCTOR                      |
-| Reporte de rotación        | Índice de rotación de productos                  |
+|Funcionalidad|Descripción|
+|-|-|
+|Ventas por fechas|Filtro por rango YYYY-MM-DD|
+|Utilidad estimada|(precio − costo) × cantidad vendida|
+|Devolución de ventas|Reingreso de inventario (solo INSTRUCTOR)|
+|Exportar CSV|Inventario completo a archivo CSV|
+|Backup automático|Copia de JSON antes de cada guardado|
+|Autenticación + roles|Login OPERADOR / INSTRUCTOR|
+|Reporte de rotación|Índice de rotación de productos|
+
+
+
+\- Reporte de rotación: productos ordenados por unidades vendidas (menú Reportes).
+
+## 
 
 ## Modelo de datos
 
 ### Producto
+
 ```json
 {
   "codigo": "P001",
@@ -116,29 +123,31 @@ python main.py
   "categoria": "Hortalizas",
   "unidad": "kg",
   "precio": 4200,
-  "costo_unitario": 2100,
-  "stock_minimo": 15,
+  "costo\_unitario": 2100,
+  "stock\_minimo": 15,
   "activo": true
 }
 ```
 
 ### Lote
+
 ```json
 {
-  "id_lote": "L001",
-  "producto_codigo": "P001",
-  "fecha_siembra": "2026-07-20",
-  "area_m2": 85.0,
-  "cantidad_producida": 40,
+  "id\_lote": "L001",
+  "producto\_codigo": "P001",
+  "fecha\_siembra": "2026-07-20",
+  "area\_m2": 85.0,
+  "cantidad\_producida": 40,
   "estado": "COSECHADO"
 }
 ```
 
 ### Movimiento
+
 ```json
 {
   "id": "M0001",
-  "producto_codigo": "P001",
+  "producto\_codigo": "P001",
   "tipo": "ENTRADA",
   "cantidad": 40,
   "motivo": "Cosecha del lote L001",
@@ -147,12 +156,13 @@ python main.py
 ```
 
 ### Venta
+
 ```json
 {
   "id": "V0001",
   "fecha": "2026-09-10 11:00",
-  "items": [
-    {"codigo": "P001", "cantidad": 8, "precio_unitario": 4200, "subtotal": 33600}
+  "items": \[
+    {"codigo": "P001", "cantidad": 8, "precio\_unitario": 4200, "subtotal": 33600}
   ],
   "total": 33600,
   "anulada": false
@@ -174,20 +184,20 @@ git log --oneline --graph --decorate --all
 
 ## Pruebas mínimas
 
-| Código | Caso                    | Resultado esperado                          |
-|--------|-------------------------|---------------------------------------------|
-| PF001  | Producto duplicado      | Rechaza el segundo registro                 |
-| PF002  | Precio inválido         | Solicita valor válido                       |
-| PF003  | Lote inexistente        | Informa que no existe                       |
-| PF004  | Doble cosecha           | Segunda operación rechazada                 |
-| PF005  | Salida excesiva         | Impide la operación                         |
-| PF006  | Venta válida            | Crea venta y reduce stock                   |
-| PF007  | Venta múltiple          | Calcula subtotales y total                  |
-| PF008  | Persistencia            | Datos se conservan al reiniciar             |
-| PF009  | Alerta de stock         | Aparece en reporte de alertas               |
-| PF010  | Devolución de venta     | Reingresa inventario y anula la venta       |
-| PF011  | Login incorrecto        | Deniega acceso tras 3 intentos              |
-| PF012  | Exportar CSV            | Genera archivo en carpeta data/             |
+|Código|Caso|Resultado esperado|
+|-|-|-|
+|PF001|Producto duplicado|Rechaza el segundo registro|
+|PF002|Precio inválido|Solicita valor válido|
+|PF003|Lote inexistente|Informa que no existe|
+|PF004|Doble cosecha|Segunda operación rechazada|
+|PF005|Salida excesiva|Impide la operación|
+|PF006|Venta válida|Crea venta y reduce stock|
+|PF007|Venta múltiple|Calcula subtotales y total|
+|PF008|Persistencia|Datos se conservan al reiniciar|
+|PF009|Alerta de stock|Aparece en reporte de alertas|
+|PF010|Devolución de venta|Reingresa inventario y anula la venta|
+|PF011|Login incorrecto|Deniega acceso tras 3 intentos|
+|PF012|Exportar CSV|Genera archivo en carpeta data/|
 
 ## Autores
 
@@ -197,3 +207,4 @@ Segundo trimestre – Centro de Biotecnología Agropecuaria (CBA)
 ## Licencia
 
 Uso educativo – SENA
+
